@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import "./App.css";
 
-import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Analytics from "./pages/Analytics";
 import Profile from "./pages/Profile";
@@ -13,12 +12,12 @@ import Settings from "./pages/Settings";
 // PUBLIC_INTERFACE
 function App() {
   /**
-   * Main application component providing routing and layout.
+   * Main application component providing routing and layout without a global NavBar.
+   * Navigation is driven by the Home page's bento grid; section pages include their own back-to-home control.
    */
   return (
     <BrowserRouter>
       <div className="min-h-screen flex flex-col bg-[var(--color-background)] text-[var(--color-text)]">
-        <NavBar />
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
