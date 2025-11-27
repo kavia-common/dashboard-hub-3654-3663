@@ -8,6 +8,12 @@ import Analytics from "./pages/Analytics";
 import Profile from "./pages/Profile";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
+import Overview from "./pages/Overview";
+import Team from "./pages/Team";
+import Activity from "./pages/Activity";
+import Billing from "./pages/Billing";
+import Notifications from "./pages/Notifications";
+import Support from "./pages/Support";
 
 // PUBLIC_INTERFACE
 function App() {
@@ -21,10 +27,18 @@ function App() {
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
+            {/* Existing */}
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/settings" element={<Settings />} />
+            {/* New */}
+            <Route path="/overview" element={<Overview />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/activity" element={<Activity />} />
+            <Route path="/billing" element={<Billing />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/support" element={<Support />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </div>
