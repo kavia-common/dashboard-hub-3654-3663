@@ -16,86 +16,120 @@ import {
 
 /**
  * PUBLIC_INTERFACE
- * BentoGrid - Homepage grid of compact square cards.
+ * BentoGrid - Homepage grid of compact cards arranged in a non-uniform (bento) layout.
+ * Layout goals:
+ * - Mobile: simple 2-col stack, uniform tiles for readability.
+ * - md+: masonry-like feel with featured tiles spanning rows/cols.
+ * - Preserve routes/labels. Only change sizing/placement.
  */
 export default function BentoGrid() {
-  // Slightly smaller icons to fit compact square card layout
   const iconClass = "h-4 w-4 text-primary";
 
-  // Keep existing routes and add new tiles with their own routes
-  const cards = [
+  // Keep existing routes and labels
+  const items = [
     {
       to: "/overview",
       title: "Overview",
       description: "High-level snapshot of your dashboard.",
-      // Using RectangleGroup for a dashboard/overview feel
-      icon: (props) => <RectangleGroupIcon className={iconClass} aria-hidden="true" {...props} />
+      icon: (props) => <RectangleGroupIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Featured hero tile
+      className:
+        "md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2"
+    },
+    {
+      to: "/analytics",
+      title: "Analytics",
+      description: "Explore key metrics, trends, and performance insights.",
+      icon: (props) => <ChartBarIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Tall spotlight tile
+      className:
+        "md:row-span-2"
     },
     {
       to: "/team",
       title: "Team",
       description: "Manage members, roles, and access.",
-      icon: (props) => <UsersIcon className={iconClass} aria-hidden="true" {...props} />
+      icon: (props) => <UsersIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Small tile
+      className: ""
     },
     {
       to: "/activity",
       title: "Activity",
       description: "Recent events and audit trail.",
-      icon: (props) => <BoltIcon className={iconClass} aria-hidden="true" {...props} />
-    },
-    // Existing cards preserved
-    {
-      to: "/analytics",
-      title: "Analytics",
-      description: "Explore key metrics, trends, and performance insights.",
-      icon: (props) => <ChartBarIcon className={iconClass} aria-hidden="true" {...props} />
+      icon: (props) => <BoltIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Wide tile for recent activity
+      className:
+        "md:col-span-2"
     },
     {
       to: "/reports",
       title: "Reports",
       description: "Generate, download, and share detailed reports.",
-      icon: (props) => <DocumentTextIcon className={iconClass} aria-hidden="true" {...props} />
+      icon: (props) => <DocumentTextIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Small tile
+      className: ""
     },
     {
       to: "/profile",
       title: "Profile",
       description: "Manage your personal information and preferences.",
-      icon: (props) => <HomeModernIcon className={iconClass} aria-hidden="true" {...props} />
+      icon: (props) => <HomeModernIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Small tile
+      className: ""
     },
     {
       to: "/settings",
       title: "Settings",
       description: "Configure application options and integrations.",
-      icon: (props) => <Cog6ToothIcon className={iconClass} aria-hidden="true" {...props} />
+      icon: (props) => <Cog6ToothIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Wide tile
+      className: "md:col-span-2"
     },
     {
       to: "/billing",
       title: "Billing",
       description: "Plans, invoices, and payment methods.",
-      icon: (props) => <CreditCardIcon className={iconClass} aria-hidden="true" {...props} />
+      icon: (props) => <CreditCardIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Small tile
+      className: ""
     },
     {
       to: "/notifications",
       title: "Notifications",
       description: "Configure alerts and preferences.",
-      icon: (props) => <BellAlertIcon className={iconClass} aria-hidden="true" {...props} />
+      icon: (props) => <BellAlertIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Small tile
+      className: ""
     },
     {
       to: "/support",
       title: "Support",
       description: "Help center and contact options.",
-      icon: (props) => <LifebuoyIcon className={iconClass} aria-hidden="true" {...props} />
+      icon: (props) => <LifebuoyIcon className={iconClass} aria-hidden="true" {...props} />,
+      // Small tile
+      className: ""
     }
   ];
 
   return (
     <ul
       role="list"
-      // Tightened gaps and responsive columns: 2 on small, 3 on md, 4 on lg+
-      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3"
+      aria-label="Quick access cards"
+      // Responsive bento grid:
+      // - 2 cols on mobile (simple)
+      // - 4 cols on md+ to allow spanning
+      // - auto-rows to support variable height via row-span utilities
+      className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 md:auto-rows-[7rem] lg:auto-rows-[8rem]"
     >
-      {cards.map((c) => (
-        <BentoCard key={c.title} {...c} />
+      {items.map((c) => (
+        <div
+          key={c.title}
+          // Apply span classes only on md+ for masonry-like layout; simple on mobile
+          className={`${c.className}`}
+        >
+          <BentoCard {...c} />
+        </div>
       ))}
     </ul>
   );
