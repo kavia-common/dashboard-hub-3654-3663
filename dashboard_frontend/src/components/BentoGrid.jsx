@@ -20,25 +20,25 @@ export default function BentoGrid() {
       to: "/analytics",
       title: "Analytics",
       description: "Explore key metrics, trends, and performance insights.",
-      icon: (props) => <ChartBarIcon className={`${iconClass}`} aria-hidden="true" {...props} />
+      icon: (props) => <ChartBarIcon className={iconClass} aria-hidden="true" {...props} />
     },
     {
       to: "/profile",
       title: "Profile",
       description: "Manage your personal information and preferences.",
-      icon: (props) => <UsersIcon className={`${iconClass}`} aria-hidden="true" {...props} />
+      icon: (props) => <UsersIcon className={iconClass} aria-hidden="true" {...props} />
     },
     {
       to: "/reports",
       title: "Reports",
       description: "Generate, download, and share detailed reports.",
-      icon: (props) => <DocumentTextIcon className={`${iconClass}`} aria-hidden="true" {...props} />
+      icon: (props) => <DocumentTextIcon className={iconClass} aria-hidden="true" {...props} />
     },
     {
       to: "/settings",
       title: "Settings",
       description: "Configure application options and integrations.",
-      icon: (props) => <Cog6ToothIcon className={`${iconClass}`} aria-hidden="true" {...props} />
+      icon: (props) => <Cog6ToothIcon className={iconClass} aria-hidden="true" {...props} />
     }
   ];
 
