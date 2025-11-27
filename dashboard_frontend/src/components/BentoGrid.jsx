@@ -16,7 +16,7 @@ import {
 /**
  * PUBLIC_INTERFACE
  * BentoGrid - Homepage grid of compact cards arranged in a non-uniform (bento) layout.
- * Baseline and spans are deterministic to prevent gaps across breakpoints.
+ * Uses a fixed auto-rows baseline with explicit row/col spans to avoid gaps.
  * - sm: 2 columns, uniform tiles (no spans)
  * - md: 3 columns, featured tiles via spans
  * - lg: 4 columns, balanced featured tiles
@@ -24,7 +24,12 @@ import {
 export default function BentoGrid() {
   const iconClass = "h-4 w-4 text-primary";
 
-  // Deterministic order; ensure "Profile" does not have an empty gap above by placing a full-height item before it.
+  // Layout strategy:
+  // - Keep a constant baseline (7rem rows).
+  // - Make Overview a 2x2 anchor.
+  // - Place a tall Analytics near the start.
+  // - Give Billing a 2-row span and arrange neighbors so no empty space sits above it.
+  // - Avoid fixed heights in cards; they flex to fill the spans.
   const gridItems = [
     {
       key: "Overview",
@@ -32,7 +37,6 @@ export default function BentoGrid() {
       title: "Overview",
       description: "High-level snapshot of your dashboard.",
       icon: (props) => <RectangleGroupIcon className={iconClass} aria-hidden="true" {...props} />,
-      // 2x2 tile at md+ to act as a stabilizer for packing
       spans: {
         base: "",
         md: "md:col-span-2 md:row-span-2",
@@ -51,6 +55,19 @@ export default function BentoGrid() {
         lg: "lg:row-span-2",
       },
     },
+    // Move Billing up and make it tall to fill the vertical gap that previously appeared above it.
+    {
+      key: "Billing",
+      to: "/billing",
+      title: "Billing",
+      description: "Plans, invoices, and payment methods.",
+      icon: (props) => <CreditCardIcon className={iconClass} aria-hidden="true" {...props} />,
+      spans: {
+        base: "",
+        md: "md:row-span-2",
+        lg: "lg:row-span-2",
+      },
+    },
     {
       key: "Team",
       to: "/team",
@@ -63,6 +80,7 @@ export default function BentoGrid() {
         lg: "",
       },
     },
+    // Keep Activity wide to create a masonry-like stagger beneath the top anchors.
     {
       key: "Activity",
       to: "/activity",
@@ -112,18 +130,6 @@ export default function BentoGrid() {
       },
     },
     {
-      key: "Billing",
-      to: "/billing",
-      title: "Billing",
-      description: "Plans, invoices, and payment methods.",
-      icon: (props) => <CreditCardIcon className={iconClass} aria-hidden="true" {...props} />,
-      spans: {
-        base: "",
-        md: "",
-        lg: "",
-      },
-    },
-    {
       key: "Notifications",
       to: "/notifications",
       title: "Notifications",
@@ -155,7 +161,7 @@ export default function BentoGrid() {
       spans.base,
       spans.md,
       spans.lg,
-      // Ensure a default single-row height at md+ to align to the baseline when not explicitly spanned
+      // Default to one baseline unit when not explicitly spanned
       "md:row-span-1",
     ]
       .filter(Boolean)
