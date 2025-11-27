@@ -17,15 +17,14 @@ import {
  * PUBLIC_INTERFACE
  * BentoGrid - Homepage grid of compact cards arranged in a non-uniform (bento) layout.
  * Baseline and spans are deterministic to prevent gaps across breakpoints.
- * - sm: 2 columns, no spans (uniform tiles)
+ * - sm: 2 columns, uniform tiles (no spans)
  * - md: 3 columns, featured tiles via spans
  * - lg: 4 columns, balanced featured tiles
  */
 export default function BentoGrid() {
   const iconClass = "h-4 w-4 text-primary";
 
-  // Define explicit, breakpoint-aware span map for each card.
-  // Order ensures "Profile" lands without a preceding vertical gap.
+  // Deterministic order; ensure "Profile" does not have an empty gap above by placing a full-height item before it.
   const gridItems = [
     {
       key: "Overview",
@@ -33,6 +32,7 @@ export default function BentoGrid() {
       title: "Overview",
       description: "High-level snapshot of your dashboard.",
       icon: (props) => <RectangleGroupIcon className={iconClass} aria-hidden="true" {...props} />,
+      // 2x2 tile at md+ to act as a stabilizer for packing
       spans: {
         base: "",
         md: "md:col-span-2 md:row-span-2",
@@ -151,7 +151,15 @@ export default function BentoGrid() {
 
   // Helper to build className for each item per breakpoint
   const buildSpanClasses = (spans) =>
-    [spans.base, spans.md, spans.lg, "md:row-span-1"].filter(Boolean).join(" ");
+    [
+      spans.base,
+      spans.md,
+      spans.lg,
+      // Ensure a default single-row height at md+ to align to the baseline when not explicitly spanned
+      "md:row-span-1",
+    ]
+      .filter(Boolean)
+      .join(" ");
 
   return (
     <ul
@@ -160,8 +168,8 @@ export default function BentoGrid() {
       className="
         grid grid-cols-2
         md:grid-cols-3 lg:grid-cols-4
-        gap-2.5 sm:gap-3
-        auto-rows-[6.5rem] md:auto-rows-[6.5rem] lg:auto-rows-[7rem]
+        gap-2 sm:gap-2.5
+        auto-rows-[7rem] md:auto-rows-[7rem] lg:auto-rows-[7rem]
       "
     >
       {gridItems.map((item) => (
