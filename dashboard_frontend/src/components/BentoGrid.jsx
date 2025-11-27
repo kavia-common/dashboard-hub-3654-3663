@@ -10,10 +10,10 @@ import {
 
 /**
  * PUBLIC_INTERFACE
- * BentoGrid - Homepage grid of four square cards.
+ * BentoGrid - Homepage grid of four compact cards.
  */
 export default function BentoGrid() {
-  const iconClass = "h-5 w-5 text-primary"; // maintain size and theme color
+  const iconClass = "h-4 w-4 text-primary"; // slightly smaller to fit compact card
 
   const cards = [
     {
@@ -45,7 +45,7 @@ export default function BentoGrid() {
   return (
     <ul
       role="list"
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+      className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
     >
       {cards.map((c) => (
         <BentoCard key={c.title} {...c} />
