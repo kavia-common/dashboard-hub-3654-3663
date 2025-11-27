@@ -1,0 +1,4 @@
+{
+    "command": "npm run test",
+    "working_directory": "/home/kavia/workspace/code-generation/dashboard-hub-3654-3663/dashboard_frontend"
+}
