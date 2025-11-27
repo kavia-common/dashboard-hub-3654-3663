@@ -12,7 +12,7 @@ export default function BentoCard({ to, title, description, icon: Icon }) {
       <Link
         to={to}
         aria-label={`${title} page`}
-        className="group relative flex h-full w-full min-h-28 sm:min-h-32 flex-col rounded-2xl bg-surface border border-gray-200/70 shadow-lg hover:shadow-xl transition-all duration-200 ease-out hover:scale-[1.01] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2563EB]/70"
+        className="group relative flex h-full w-full min-h-[6.5rem] sm:min-h-[6.5rem] flex-col rounded-2xl bg-surface border border-gray-200/70 shadow-lg hover:shadow-xl transition-all duration-200 ease-out hover:scale-[1.01] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2563EB]/70"
       >
         {/* Gradient overlay with primary/secondary accents */}
         <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/10 via-amber-500/[0.03] to-gray-50 opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out" />

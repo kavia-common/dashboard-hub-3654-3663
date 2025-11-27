@@ -32,25 +32,23 @@ export default function BentoGrid() {
       title: "Overview",
       description: "High-level snapshot of your dashboard.",
       icon: (props) => <RectangleGroupIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Featured hero tile
-      className:
-        "md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2"
+      // Featured hero tile (2x2)
+      className: "md:col-span-2 md:row-span-2"
     },
     {
       to: "/analytics",
       title: "Analytics",
       description: "Explore key metrics, trends, and performance insights.",
       icon: (props) => <ChartBarIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Tall spotlight tile
-      className:
-        "md:row-span-2"
+      // Tall spotlight tile (1x2)
+      className: "md:row-span-2"
     },
     {
       to: "/team",
       title: "Team",
       description: "Manage members, roles, and access.",
       icon: (props) => <UsersIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Small tile
+      // Small tile (1x1)
       className: ""
     },
     {
@@ -58,16 +56,15 @@ export default function BentoGrid() {
       title: "Activity",
       description: "Recent events and audit trail.",
       icon: (props) => <BoltIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Wide tile for recent activity
-      className:
-        "md:col-span-2"
+      // Wide tile (2x1)
+      className: "md:col-span-2"
     },
     {
       to: "/reports",
       title: "Reports",
       description: "Generate, download, and share detailed reports.",
       icon: (props) => <DocumentTextIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Small tile
+      // Small tile (1x1)
       className: ""
     },
     {
@@ -75,7 +72,7 @@ export default function BentoGrid() {
       title: "Profile",
       description: "Manage your personal information and preferences.",
       icon: (props) => <HomeModernIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Small tile
+      // Ensure no gap above: keep as 1x1 so it tucks under neighbors
       className: ""
     },
     {
@@ -83,7 +80,7 @@ export default function BentoGrid() {
       title: "Settings",
       description: "Configure application options and integrations.",
       icon: (props) => <Cog6ToothIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Wide tile
+      // Wide tile (2x1)
       className: "md:col-span-2"
     },
     {
@@ -91,7 +88,7 @@ export default function BentoGrid() {
       title: "Billing",
       description: "Plans, invoices, and payment methods.",
       icon: (props) => <CreditCardIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Small tile
+      // Small tile (1x1)
       className: ""
     },
     {
@@ -99,7 +96,7 @@ export default function BentoGrid() {
       title: "Notifications",
       description: "Configure alerts and preferences.",
       icon: (props) => <BellAlertIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Small tile
+      // Small tile (1x1)
       className: ""
     },
     {
@@ -107,7 +104,7 @@ export default function BentoGrid() {
       title: "Support",
       description: "Help center and contact options.",
       icon: (props) => <LifebuoyIcon className={iconClass} aria-hidden="true" {...props} />,
-      // Small tile
+      // Small tile (1x1)
       className: ""
     }
   ];
@@ -120,13 +117,14 @@ export default function BentoGrid() {
       // - 2 cols on mobile (simple)
       // - 4 cols on md+ to allow spanning
       // - auto-rows to support variable height via row-span utilities
-      className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 md:auto-rows-[7rem] lg:auto-rows-[8rem]"
+      // Use a uniform small row height so row-span increments align tightly and avoid gaps.
+      className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 auto-rows-[6.5rem] md:auto-rows-[6.5rem] lg:auto-rows-[7rem]"
     >
       {items.map((c) => (
         <div
           key={c.title}
           // Apply span classes only on md+ for masonry-like layout; simple on mobile
-          className={`${c.className}`}
+          className={`${c.className || ""} md:row-span-1`}
         >
           <BentoCard {...c} />
         </div>
